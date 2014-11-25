@@ -1351,6 +1351,10 @@ public class CameraActivity extends Activity
             mFilmStripView.getController().goToFirstItem();
             mCurrentModule.resizeForPreviewAspectRatio();
         } else if (!mCurrentModule.onBackPressed()) {
+            // When back, WindowLeaked, if null != mStorageHint.
+            if (null != mStorageHint) {
+                mStorageHint.cancel();
+            }
             super.onBackPressed();
         }
     }
